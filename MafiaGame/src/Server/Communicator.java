@@ -8,8 +8,8 @@ public class Communicator {
     DataOutputStream dos;
     DataInputStream dis;
 
-    void startThread() {
-        Thread reciever = new Thread(() -> {
+    void startReceiving() {
+        Thread receiver = new Thread(() -> {
 
 
             while(true) {
@@ -21,7 +21,7 @@ public class Communicator {
                 }
             }
         });
-        reciever.start();
+        receiver.start();
     }
 
     void send(String json) {

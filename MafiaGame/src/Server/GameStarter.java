@@ -39,8 +39,43 @@ public class GameStarter {
                 Citizen citizen = (Citizen) player;
                 Server.players.set(i, citizen);
             }
-            Server.players.get(i).startThread();
+            Server.players.get(i).startReceiving();
         }
 
+        Server.isGameInProgress = true;
+
+        new Thread(() -> {
+            while(Server.isGameInProgress != false) {
+                try {
+                    Server.time = EnumTime.DAY;
+                    Thread.sleep(90000);
+
+                    Server.synchronize(); //for client-side timer
+
+                    Server.time = EnumTime.VOTING;
+                    Thread.sleep(15000);
+
+                    Server.synchronize(); //for client-side timer
+
+                    Server.time = EnumTime.NIGHT;
+                    Thread.sleep(10000);
+
+                    Server.synchronize(); //for client-side timer
+                } catch(InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 }
+
+
+
+
+
+
+
+
+
+
+

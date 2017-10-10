@@ -9,12 +9,11 @@ import java.util.List;
 
 public class Server {
 
-    ServerSocket servSock;
-    Socket socket;
+    private ServerSocket servSock;
+    private Socket socket;
     public static List<Player> players;
-
-    Boolean dayNow = true; // true : day, false : night
-
+    public static boolean isGameInProgress = false;
+    public static EnumTime time = EnumTime.DAY;
 
     void run() {
         try {
